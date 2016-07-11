@@ -8,6 +8,13 @@ describe Rasem::SVGImage do
     str.should =~ %r{height="100"}
   end
 
+  it "should initialize an empty image with viewBox" do
+    img = Rasem::SVGImage.new(100, 100, "0 1 100 101")
+    str = img.output
+    str.should =~ %r{viewBox="0 1 100 101"}
+  end
+
+
   it "should initialize XML correctly" do
     img = Rasem::SVGImage.new(100, 100)
     str = img.output
@@ -26,7 +33,7 @@ describe Rasem::SVGImage do
     end
     img.should be_closed
   end
-  
+
   it "should draw line using method" do
     img = Rasem::SVGImage.new(100, 100)
     img.line(0, 0, 100, 100)
@@ -38,7 +45,7 @@ describe Rasem::SVGImage do
     str.should =~ %r{x2="100"}
     str.should =~ %r{y2="100"}
   end
-  
+
   it "should draw line using a block" do
     img = Rasem::SVGImage.new(100, 100) do
       line(0, 0, 100, 100)
@@ -140,7 +147,7 @@ describe Rasem::SVGImage do
     str.should =~ %r{style=}
     str.should =~ %r{fill:white}
   end
-  
+
   it "should draw an ellipse" do
     img = Rasem::SVGImage.new(100, 100) do
       ellipse(0, 0, 100, 300)
@@ -197,7 +204,7 @@ describe Rasem::SVGImage do
     str.should =~ %r{style=}
     str.should =~ %r{stroke-width:3}
   end
-  
+
   it "should group styles" do
     img = Rasem::SVGImage.new(100, 100) do
       with_style :stroke_width=>3 do
@@ -248,7 +255,7 @@ describe Rasem::SVGImage do
     str.should_not =~ %r{stroke-width:3}
     str.should_not =~ %r{stroke-width:5}
   end
-  
+
   it "should create a group" do
     img = Rasem::SVGImage.new(100, 100) do
       group :stroke_width=>3 do
@@ -259,7 +266,7 @@ describe Rasem::SVGImage do
     str = img.output
     str.should =~ %r{<g .*circle.*circle.*</g>}
   end
-  
+
   it "should update width and height after init" do
     img = Rasem::SVGImage.new(100, 100) do
       set_width 200
@@ -288,7 +295,7 @@ describe Rasem::SVGImage do
     str = img.output
     str.should =~ %r{<text.*tspan.*tspan.*</text}
   end
-  
+
   it "should draw text with font" do
     img = Rasem::SVGImage.new(100, 100) do
       text 10, 20, "Hello\nworld!", :font_family=>"Times", "font-size"=>24
