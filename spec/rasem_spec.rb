@@ -11,6 +11,7 @@ describe Rasem::SVGImage do
   it "should initialize an empty image with viewBox" do
     img = Rasem::SVGImage.new(100, 100, "0 1 100 101")
     str = img.output
+    puts str
     str.should =~ %r{viewBox="0 1 100 101"}
   end
 

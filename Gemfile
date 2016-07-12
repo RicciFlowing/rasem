@@ -9,5 +9,5 @@ group :development do
   gem "rspec"
   gem "bundler"
   gem "jeweler"
-  gem "rcov", ">= 0"
+  #gem "rcov", ">= 0"
 end
